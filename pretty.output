@@ -1,20 +1,23 @@
-Feature: User Login and Filter # features/login.feature:1
+Feature: Product Filtering # features/02_filter.feature:1
 
-  Scenario: Filter high to low                                         # features/login.feature:3
+  Scenario: Filter high to low                                         # features/02_filter.feature:3
     Given the user is on the main dashboard                            # features/steps/filter_steps.py:6
     When the user filters the displayed product's price from hi to low # features/steps/filter_steps.py:12
     Then the user expects the first product to have the highest price  # features/steps/filter_steps.py:17
 
-  Scenario: A to Z                                          # features/login.feature:8
-    Given the user is on the main dashboard                 # features/steps/filter_steps.py:6
-    When the user filters the displayed product from a to z # features/steps/filter_steps.py:24
+  Scenario: A to Z                                                           # features/02_filter.feature:8
+    Given the user is on the main dashboard                                  # features/steps/filter_steps.py:6
+    When the user filters the displayed product from a to z                  # features/steps/filter_steps.py:24
+    Then the user expects the product list to be sorted alphabetically (a-z) # features/steps/filter_steps.py:29
 
-  Scenario: add to cart on dashboard                                                          # features/login.feature:13
-    Given the user clicks the add to cart button                                              # features/steps/login_steps.py:26
-    When the user opens the cart                                                              # features/steps/login_steps.py:33
-    Then the user expects that the product is already on the cart and checks the product name # features/steps/login_steps.py:38
+Feature: Shopping Cart # features/03_cart.feature:1
 
-  Scenario: click remove and go back to inventory dashboard    # features/login.feature:18
-    Given the user is on the cart and clicks the remove button # features/steps/login_steps.py:46
-    When the user clicks the continue shopping button          # features/steps/login_steps.py:53
+  Scenario: Add to cart on dashboard                                                          # features/03_cart.feature:3
+    Given the user clicks the add to cart button                                              # features/steps/cart_steps.py:26
+    When the user opens the cart                                                              # features/steps/cart_steps.py:33
+    Then the user expects that the product is already on the cart and checks the product name # features/steps/cart_steps.py:38
+
+  Scenario: Remove from cart and go back to dashboard          # features/03_cart.feature:9
+    Given the user is on the cart and clicks the remove button # features/steps/cart_steps.py:46
+    When the user clicks the continue shopping button          # features/steps/cart_steps.py:53
 

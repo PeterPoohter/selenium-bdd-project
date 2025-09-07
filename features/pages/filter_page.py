@@ -8,17 +8,15 @@ class FilterHighLow:
         self.driver = driver
         self.filter_dropdown = (By.CLASS_NAME, "product_sort_container")
         self.filter_select = Select(driver.find_element("xpath", "//select[@class='product_sort_container']"))
-        # self.prices_elements = driver.find_elements(By.CSS_SELECTOR, ".inventory_item_price")
-    
-    # def open(self, url):   # <--- MUST be indented inside the class
-    #     self.driver.get(url)
+        self.prices_elements = (By.CSS_SELECTOR, ".inventory_item_price") #- the element locator is set on the step function to get the actual sorted prices when asserting
+        self.product_name = (By.CSS_SELECTOR, ".inventory_item_name")
 
     def filter_hilo(self):
        self.filter_select.select_by_value("hilo")
 
     def check_price(self):
-        prices_elements = self.driver.find_elements(By.CSS_SELECTOR, ".inventory_item_price")
-        prices = [float(price.text.replace("$", "")) for price in prices_elements]
+        prices_list = self.driver.find_elements(*self.prices_elements)
+        prices = [float(price.text.replace("$", "")) for price in prices_list]
 
         print("Displayed prices:", prices)
 
@@ -26,3 +24,8 @@ class FilterHighLow:
 
     def filter_a_to_z(self):
         self.filter_select.select_by_value("az")
+
+    def check_sorting_az(self):
+        product_name_list = self.driver.find_elements(*self.product_name)
+        prod_name = [name.text for name in product_name_list]
+        assert prod_name == sorted(prod_name), f"Name not sorted A-Z: {prod_name}"

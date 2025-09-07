@@ -26,5 +26,9 @@ def step_impl(context):
     context.filter_page.filter_a_to_z()
     time.sleep(2)
 
+@then("the user expects the product list to be sorted alphabetically (a-z)")
+def step_impl(context):
+    context.filter_page.check_sorting_az()
+
 
     

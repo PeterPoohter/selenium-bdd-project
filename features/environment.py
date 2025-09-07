@@ -18,5 +18,15 @@ def before_all(context):
     context.driver.find_element(By.NAME, "password").send_keys(config.PASSWORD + Keys.RETURN)
     time.sleep(3)  # wait for dashboard
 
+    
+# def before_scenario(context, scenario):
+#     context.driver.get(config.BASE_URL)
+
+#     # 👉 Auto-login ONLY if the scenario requires login
+#     if "requires_login" in scenario.tags:
+#         context.driver.find_element(By.NAME, "user-name").send_keys(config.USERNAME)
+#         context.driver.find_element(By.NAME, "password").send_keys(config.PASSWORD + Keys.RETURN)
+#         time.sleep(3)
+
 def after_all(context):
     context.driver.quit()

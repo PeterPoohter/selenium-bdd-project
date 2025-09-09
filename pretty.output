@@ -1,23 +1,50 @@
 Feature: Product Filtering # features/02_filter.feature:1
 
   Scenario: Filter high to low                                         # features/02_filter.feature:3
-    Given the user is on the main dashboard                            # features/steps/filter_steps.py:6
-    When the user filters the displayed product's price from hi to low # features/steps/filter_steps.py:12
-    Then the user expects the first product to have the highest price  # features/steps/filter_steps.py:17
+    Given the user is on the main dashboard                            # features/steps/filter_steps.py:8
+    When the user filters the displayed product's price from hi to low # features/steps/filter_steps.py:14
+    Then the user expects the first product to have the highest price  # features/steps/filter_steps.py:19
 
-  Scenario: A to Z                                                           # features/02_filter.feature:8
-    Given the user is on the main dashboard                                  # features/steps/filter_steps.py:6
-    When the user filters the displayed product from a to z                  # features/steps/filter_steps.py:24
-    Then the user expects the product list to be sorted alphabetically (a-z) # features/steps/filter_steps.py:29
+  Scenario: Filter low to high                                         # features/02_filter.feature:8
+    Given the user is on the main dashboard                            # features/steps/filter_steps.py:8
+    When the user filters the displayed product's price from low to hi # features/steps/filter_steps.py:27
+    Then the user expects the first product to have the lowest price   # features/steps/filter_steps.py:32
+
+  Scenario: A to Z                                                           # features/02_filter.feature:13
+    Given the user is on the main dashboard                                  # features/steps/filter_steps.py:8
+    When the user filters the displayed product from a to z                  # features/steps/filter_steps.py:39
+    Then the user expects the product list to be sorted alphabetically (a-z) # features/steps/filter_steps.py:44
+
+  Scenario: Z to A                                                           # features/02_filter.feature:18
+    Given the user is on the main dashboard                                  # features/steps/filter_steps.py:8
+    When the user filters the displayed product from z to a                  # features/steps/filter_steps.py:50
+    Then the user expects the product list to be sorted alphabetically (z-a) # features/steps/filter_steps.py:55
 
 Feature: Shopping Cart # features/03_cart.feature:1
 
-  Scenario: Add to cart on dashboard                                                          # features/03_cart.feature:3
-    Given the user clicks the add to cart button                                              # features/steps/cart_steps.py:26
-    When the user opens the cart                                                              # features/steps/cart_steps.py:33
-    Then the user expects that the product is already on the cart and checks the product name # features/steps/cart_steps.py:38
+  Scenario: Add to cart on dashboard                        # features/03_cart.feature:3
+    Given the user is on the main dashboard                 # features/steps/filter_steps.py:8
+    When the user clicks the add to cart button             # features/steps/cart_steps.py:26
+    Then the user checks the number the cart badge reflects # features/steps/cart_steps.py:32
 
-  Scenario: Remove from cart and go back to dashboard          # features/03_cart.feature:9
-    Given the user is on the cart and clicks the remove button # features/steps/cart_steps.py:46
-    When the user clicks the continue shopping button          # features/steps/cart_steps.py:53
+  Scenario: Open Cart                                                                         # features/03_cart.feature:8
+    Given the cart is not empty                                                               # features/steps/cart_steps.py:38
+    When the user opens the cart                                                              # features/steps/cart_steps.py:44
+    Then the user expects that the product is already on the cart and checks the product name # features/steps/cart_steps.py:49
+
+  Scenario: Remove from cart and go back to dashboard          # features/03_cart.feature:13
+    Given the user is on the cart and clicks the remove button # features/steps/cart_steps.py:57
+    When the user clicks the continue shopping button          # features/steps/cart_steps.py:64
+
+Feature: Logging In # features/04_login.feature:1
+
+  Scenario: Login with VALID credentials                       # features/04_login.feature:3
+    Given that the current state is logged-out                 # features/steps/login_steps.py:9
+    When the user logs-in with VALID credentials               # features/steps/login_steps.py:17
+    Then the user validates that it has successfully logged-in # features/steps/login_steps.py:25
+
+  Scenario: Login with INVALID credentials         # features/04_login.feature:8
+    Given that the current state is logged-out     # features/steps/login_steps.py:9
+    When the user logs-in with INVALID credentials # features/steps/login_steps.py:31
+    Then the user has unsuccessfully logged-in     # features/steps/login_steps.py:39
 
